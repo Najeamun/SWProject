@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - User System</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <div class="signup-container">
+        <h2>회원가입</h2>
+        <form id="signup-form">
+            <div class="input-group">
+                <label for="nickname">닉네임 (활동명)</label>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" id="nickname" name="nickname" required style="flex:1;">
+                    <button type="button" id="check-nickname" class="btn btn-accent" style="width:auto; margin:0; padding:10px 15px; font-size:0.9em;">중복 확인</button>
+                </div>
+                <span id="nickname-status" class="status-message" style="display:block; margin-top:5px; font-size:0.9em;"></span>
+            </div>
+
+            <div class="input-group">
+                <label for="username">아이디 (로그인용)</label>
+                <input type="text" id="username" name="username" required minlength="4" placeholder="영문, 숫자 4자 이상">
+            </div>
+
+            <div class="input-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" required minlength="6">
+                <small style="color: gray; display: block; margin-top: 5px;">
+                    비밀번호는 최소 6자리 이상이어야 합니다.
+                </small>
+            </div>
+
+            <div class="input-group">
+                <label for="confirm-password">비밀번호 확인</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                <span id="password-match-status" class="status-message" style="font-size:0.9em;"></span>
+            </div>
+
+            <div class="input-group">
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; margin-top:20px;" disabled>가입하기</button>
+        </form>
+
+        <p class="login-link" style="text-align:center; margin-top:20px;">
+            이미 계정이 있으신가요? <a href="login.html" style="color:#E67E22; font-weight:bold;">로그인</a>
+        </p>
+    </div>
+
+    <script src="../../js/register-script.js"></script>
+</body>
+</html>

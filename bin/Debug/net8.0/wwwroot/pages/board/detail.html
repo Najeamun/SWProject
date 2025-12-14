@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="post-title-tag">게시글 상세</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        body {
+            display: block !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .detail-container {
+            width: 900px; /* 고정 폭으로 설정하여 공간 확보 */
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: auto;
+            clear: both;
+        }
+
+        .detail-header {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .detail-header h2 {
+            margin: 0;
+        }
+
+        .post-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .post-actions {
+            /* 🚨 [추가] Flexbox를 사용하여 오른쪽 정렬 및 간격 확보 */
+            display: flex;
+            justify-content: flex-end; /* 내용을 오른쪽 끝으로 정렬 */
+            gap: 10px; /* 버튼 사이 간격 추가 */
+            padding: 10px 0; /* 상하 여백 추가 */
+        }
+
+        .post-actions button {
+            /* 🚨 [추가] 버튼에 통일된 스타일 적용 */
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none; /* 목록으로 버튼 등의 링크 스타일 제거 */
+        }
+        .detail-content {
+            min-height: 200px;
+            padding: 20px 0;
+            border-bottom: 1px dashed #ccc;
+            white-space: pre-wrap;
+        }
+
+        /* 댓글 섹션 전체를 게시글 본문 아래에 넓게 배치 */
+        .comment-section {
+            width: 900px;
+            clear: both;
+            margin-top: 30px;
+            margin: 50px auto;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .comment-form-container {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        /* 댓글 목록 스타일 */
+        #comments-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #comments-list li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #f0f0f0;
+        }
+
+        #comments-list li:last-child {
+            border-bottom: none; /* 마지막 댓글 아래 점선 제거 */
+        }
+    </style>
+</head>
+<body>
+    <div class="detail-container">
+        <div id="loading">게시글 정보를 불러오는 중입니다...</div>
+
+        <div id="post-detail" style="display: none;">
+            <div class="detail-header">
+                <h2 id="post-title"></h2>
+                <div class="post-info">
+                    <div>
+                        <span id="post-category" style="font-weight: bold; color: #E67E22; margin-right: 10px;"></span>
+                        | <span id="post-author" style="margin-left: 10px;"></span>
+                    </div>
+
+                    <div>
+                        <span>작성일: <span id="post-created-at"></span></span>
+                        | <span>조회수: <span id="post-views"></span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-content" id="post-content"></div>
+        </div>
+        <div class="post-actions" style="margin-top: 20px;">
+            <button id="delete-button"
+                    style="background-color: #dc3545; color: white; display: none;"
+                    onclick="deletePost()">
+                삭제
+            </button>
+            <button id="edit-button"
+                    style="background-color: #ffc107; color: black; display: none;"
+                    onclick="location.href='edit.html?id=' + getCurrentPostId()">
+                수정
+            </button>
+            <button onclick="location.href='board.html'">목록으로</button>
+        </div>
+    </div>
+    <div class="comment-section">
+        <h3>댓글 (<span id="comment-count">0</span>)</h3>
+
+        <ul id="comments-list" style="list-style: none; padding: 0;">
+        </ul>
+
+        <div class="comment-form-container">
+            <h4>댓글 쓰기</h4>
+            <form id="comment-form">
+                <textarea id="comment-content" placeholder="댓글 내용을 입력하세요." required style="width: 100%; min-height: 80px;"></textarea>
+                <button type="submit" class="submit-button" style="float: right;">등록</button>
+                <div style="clear: both;"></div>
+            </form>
+        </div>
+    </div>
+    <script src="../../js/detail-script.js"></script>
+</body>
+</html>

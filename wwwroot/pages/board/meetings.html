@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모임 찾기</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <header>
+        <a href="../../pages/auth/index.html" style="text-decoration: none;">
+            <div class="logo">🎲 BoardWorld</div>
+        </a>
+        <nav>
+            <a href="../../pages/board/board.html">자유게시판</a>
+            <a href="../../pages/board/games.html">게임정보</a>
+            <a href="../../pages/board/meetings.html" class="active">모임찾기</a>
+        </nav>
+        <div id="user-profile">
+            <a href="../../pages/auth/login.html" class="auth-btn">로그인</a>
+        </div>
+    </header>
+
+    <div class="meeting-container">
+        <div class="header-area">
+            <h2>보드게임 모임 리스트</h2>
+            <button id="toggle-btn" class="btn btn-primary">
+                + 모임 만들기
+            </button>
+        </div>
+
+        <div id="create-form-container" style="display: none;">
+            <h3 style="border-bottom:1px solid #ddd; padding-bottom:10px;">새 모임 만들기</h3>
+            <form id="create-meeting-form">
+                <div class="input-group">
+                    <label>모임 제목</label>
+                    <input type="text" id="title" placeholder="예: 강남역 카탄 하실 분!" required>
+                </div>
+                <div style="display:flex; gap:20px;">
+                    <div class="input-group" style="flex:1;">
+                        <label>장소</label>
+                        <input type="text" id="location" placeholder="예: 레드버튼 강남점" required>
+                    </div>
+                    <div class="input-group" style="flex:1;">
+                        <label>일시</label>
+                        <input type="datetime-local" id="meeting-time" required>
+                    </div>
+                    <div class="input-group" style="flex:1;">
+                        <label>최대 인원</label>
+                        <input type="number" id="max-participants" min="2" value="4" required>
+                    </div>
+                </div>
+                <div style="text-align:right;">
+                    <button type="submit" class="btn btn-primary">등록하기</button>
+                </div>
+            </form>
+        </div>
+
+        <table class="meeting-table">
+            <thead>
+                <tr>
+                    <th style="width: 10%;">상태</th>
+                    <th style="width: 40%;">제목 (장소)</th>
+                    <th style="width: 15%;">주최자</th>
+                    <th style="width: 20%;">일시</th>
+                    <th style="width: 15%;">신청 / 관리</th>
+                </tr>
+            </thead>
+            <tbody id="meeting-list-body">
+                <tr><td colspan="5">모임을 불러오는 중...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../../js/meetings-script.js"></script>
+</body>
+</html>

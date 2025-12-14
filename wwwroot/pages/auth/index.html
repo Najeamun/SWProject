@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>보드게임 커뮤니티</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        /* 🚨 [수정 3] 기존 hero-section 관련 스타일 제거 */
+        /* .hero-section, .hero-title 관련 스타일을 아래 슬라이더 스타일로 대체 */
+
+        /* 슬라이더 컨테이너 설정 */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            margin: 0 auto 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider-wrapper {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide-item {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+            /* 텍스트 배경 오버레이 */
+            .slide-item::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+
+        .slide-text {
+            z-index: 10;
+            padding: 20px;
+        }
+
+            .slide-text h3 {
+                font-size: 2.5em;
+                margin-bottom: 10px;
+                text-shadow: 1px 1px 3px #000;
+            }
+        .slide-nav {
+            position: absolute; /* 👈 컨테이너 기준으로 위치 지정 */
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.5em;
+            z-index: 20;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+            .slide-nav:hover {
+                opacity: 1;
+            }
+
+        .prev {
+            left: 10px; /* 👈 왼쪽 끝에 배치 */
+        }
+
+        .next {
+            right: 10px; /* 👈 오른쪽 끝에 배치 */
+        }
+        .section-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+            .dashboard-card h3 {
+                border-bottom: 2px solid #007bff;
+                padding-bottom: 15px;
+                margin-top: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+                .dashboard-card h3 a {
+                    font-size: 0.6em;
+                    color: #666;
+                    text-decoration: none;
+                    font-weight: normal;
+                }
+
+                    .dashboard-card h3 a:hover {
+                        color: #007bff;
+                        text-decoration: underline;
+                    }
+
+        .summary-list {
+            list-style: none;
+            padding: 0;
+        }
+
+            .summary-list li {
+                padding: 12px 0;
+                border-bottom: 1px dashed #eee;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+                .summary-list li:last-child {
+                    border-bottom: none;
+                }
+
+            .summary-list a {
+                text-decoration: none;
+                color: #333;
+                font-weight: 500;
+                flex: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-right: 10px;
+            }
+
+                .summary-list a:hover {
+                    color: #007bff;
+                }
+
+        .summary-date {
+            font-size: 0.85em;
+            color: #888;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        /* 추천 게임 미니 카드 스타일 */
+        .rec-game-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+            .rec-game-item:hover {
+                transform: translateX(5px);
+                background: #f0f8ff;
+            }
+
+        .rec-game-img {
+            width: 60px;
+            height: 60px;
+            background: #ddd;
+            margin-right: 15px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <header style="background:#222; padding:15px 30px; color:white; display:flex; justify-content:space-between; align-items:center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+        <div style="font-weight:bold; font-size:1.5em; letter-spacing: 1px;">🎲 BoardWorld</div>
+        <nav>
+            <a href="../../pages/board/board.html" style="color:white; text-decoration:none; margin:0 15px; font-size: 1.1em;">자유게시판</a>
+            <a href="../../pages/board/games.html" style="color:white; text-decoration:none; margin:0 15px; font-size: 1.1em;">게임정보</a>
+            <a href="../../pages/board/meetings.html" style="color:white; text-decoration:none; margin:0 15px; font-size: 1.1em;">모임찾기</a>
+        </nav>
+        <div id="user-profile" style="font-size: 0.9em;">
+                <a href="../../pages/auth/login.html" class="login-btn">로그인</a> |
+                <a href="../../pages/auth/register.html" class="register-btn">회원가입</a>
+        </div>
+    </header>
+
+    <div class="slider-container">
+        <div class="slider-wrapper">
+            <div class="slide-item" style="background-image: url('img/event1.jpg');">
+                <div class="slide-text">
+                    <h3>🎉 주말 보드게임 페스티벌!</h3>
+                    <p>다양한 신작 보드게임을 체험해 보세요.</p>
+                    <a href="#" class="slide-button">자세히 보기</a>
+                </div>
+            </div>
+
+            <div class="slide-item" style="background-image: url('img/event2.jpg');">
+                <div class="slide-text">
+                    <h3>🎲 보드게임 할인 이벤트</h3>
+                    <p>인기 전략 보드게임 최대 30% 할인!</p>
+                    <a href="#" class="slide-button">구매하기</a>
+                </div>
+            </div>
+
+            <div class="slide-item" style="background-image: url('img/event3.jpg');">
+                <div class="slide-text">
+                    <h3>💡 초보자 모임 모집</h3>
+                    <p>쉬운 입문 게임으로 보드게임의 재미를 느껴보세요.</p>
+                    <a href="#" class="slide-button">참여 신청</a>
+                </div>
+            </div>
+        </div>
+
+        <button class="slide-nav prev">❮</button>
+        <button class="slide-nav next">❯</button>
+    </div>
+
+    <main class="section-container">
+
+        <div class="dashboard-card">
+            <h3>
+                📢 최신 게시글
+                <a href="../../pages/board/board.html">더보기 +</a>
+            </h3>
+            <ul id="main-board-list" class="summary-list">
+                <li style="color:#999; text-align:center;">로딩 중...</li>
+            </ul>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>
+                🏆 추천 보드게임
+                <a href="../../pages/board/games.html">더보기 +</a>
+            </h3>
+            <div id="main-game-list">
+                <p style="color:#999; text-align:center;">로딩 중...</p>
+            </div>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>
+                🤝 모집 중인 모임
+                <a href="../../pages/board/meetings.html">더보기 +</a>
+            </h3>
+            <ul id="main-meeting-list" class="summary-list">
+                <li style="color:#999; text-align:center;">로딩 중...</li>
+            </ul>
+        </div>
+
+    </main>
+
+    <footer style="background: #eee; padding: 20px; text-align: center; color: #666; font-size: 0.8em;">
+        &copy; 2025 BoardGame Community Platform. All rights reserved.
+    </footer>
+
+    <script src="../../js/main-script.js"></script>
+</body>
+</html>

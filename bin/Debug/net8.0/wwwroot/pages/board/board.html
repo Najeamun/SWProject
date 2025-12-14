@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자유 게시판</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <header>
+        <a href="../../pages/auth/index.html" style="text-decoration: none;">
+            <div class="logo">🎲 BoardWorld</div>
+        </a>
+        <nav>
+            <a href="../../pages/board/board.html" class="active">자유게시판</a>
+            <a href="../../pages/board/games.html">게임정보</a>
+            <a href="../../pages/board/meetings.html">모임찾기</a>
+        </nav>
+        <div id="user-profile">
+            <a href="../../pages/auth/login.html" class="auth-btn">로그인</a>
+        </div>
+    </header>
+    <div class="board-container">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <h2 style="margin:0;">자유 게시판</h2>
+
+                <select id="board-category-filter" onchange="filterPosts()" style="padding:5px;">
+                    <option value="전체">전체</option>
+                    <option value="잡담">잡담</option>
+                    <option value="질문">질문</option>
+                    <option value="후기">후기</option>
+                    <option value="정보">정보</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="location.href='write.html'">✏️ 글쓰기</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 10%;">번호</th>
+                    <th style="width: 10%;">분류</th>
+                    <th style="width: 40%;">제목</th>
+                    <th style="width: 15%;">작성자</th>
+                    <th style="width: 15%;">작성일</th>
+                    <th style="width: 10%;">조회</th>
+                </tr>
+            </thead>
+            <tbody id="posts-table-body">
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../../js/main-script.js"></script>
+    <script src="../../js/board-script.js"></script>
+</body>
+</html>
